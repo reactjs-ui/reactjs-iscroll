@@ -1,0 +1,19 @@
+@mixin box-shadow($shadow...) {
+  box-shadow: $shadow;
+}
+
+@mixin transition($transition...) {
+  -webkit-transform: $transition;
+  -moz-transform: $transition;
+  -ms-transform: $transition;
+  -o-transform: $transition;
+  transform: $transition;
+}
+
+@mixin user-select-none() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

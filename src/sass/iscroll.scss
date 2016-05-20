@@ -1,0 +1,83 @@
+@import "./mixins";
+
+.iscroll-wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.iscroll-body {
+  position: absolute;
+  z-index: 1;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  @include transition(translateZ(0));
+  @include user-select-none();
+  text-size-adjust: none;
+}
+
+.iscroll-pull-down,
+.iscroll-pull-up {
+  padding: 5px 10px;
+  color: #888;
+  text-align: center;
+}
+
+.iscroll-pull-down.scrolled-up {
+  margin-top: -51px;
+}
+
+.iscroll-pull-down > i,
+.iscroll-pull-up > i {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: url("../images/pull-icon.png") 0 0 no-repeat;
+  -webkit-background-size: 40px 80px;
+  background-size: 40px 80px;
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 250ms;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+
+.iscroll-pull-down > i {
+  transform: rotate(0deg) translateZ(0);
+}
+
+.iscroll-pull-up > i {
+  transform: rotate(-180deg) translateZ(0);
+}
+
+.iscroll-pull-down.iscroll-flip > i {
+  transform: rotate(-180deg) translateZ(0);
+}
+
+.iscroll-pull-up.iscroll-flip > i {
+  transform: rotate(0deg) translateZ(0);
+}
+
+.iscroll-pull-down.iscroll-loading > i,
+.iscroll-pull-up.iscroll-loading > i {
+  background-position: 0 100%;
+  transform: rotate(0deg) translateZ(0);
+  transition-duration: 0ms;
+
+  animation-name: iscroll-loading;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@-webkit-keyframes iscroll-loading {
+  from {
+    -webkit-transform: rotate(0deg) translateZ(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg) translateZ(0);
+  }
+}

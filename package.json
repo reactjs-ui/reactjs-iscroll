@@ -1,0 +1,62 @@
+{
+  "name": "reactjs-iscroll",
+  "version": "0.1.0",
+  "author": {
+    "name": "Linder Wang",
+    "email": "linder0209@126.com",
+    "url": "https://github.com/hopefuture"
+  },
+  "description": "基于 iscroll 实现的 react 组件",
+  "keywords": [
+    "react",
+    "iscroll",
+    "component"
+  ],
+  "main": "dist/index.js",
+  "scripts": {},
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "iscroll": "^5.2.0",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "del": "^2.2.0",
+    "eslint": "^2.10.2",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-flow-vars": "^0.4.0",
+    "eslint-plugin-react": "^5.1.1",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-util": "^3.0.7",
+    "html-webpack-plugin": "^2.17.0",
+    "node-sass": "^3.7.0",
+    "opn": "^4.0.2",
+    "postcss": "^5.0.21",
+    "postcss-loader": "^0.9.1",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactjs-ui/reactjs-iscroll.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reactjs-ui/reactjs-iscroll/issues"
+  },
+  "homepage": "https://github.com/reactjs-ui/reactjs-iscroll#readme"
+}
