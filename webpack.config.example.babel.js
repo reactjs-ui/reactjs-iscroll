@@ -46,7 +46,9 @@ let webpackConfig = {
 
   // 入口文件 让webpack用哪个文件作为项目的入口
   entry: {
-    simple: ['./examples/simple.js', webpackDevServer, hotDevServer]
+    index: ['./examples/index.js', webpackDevServer, hotDevServer],
+    simple: ['./examples/simple.js', webpackDevServer, hotDevServer],
+    paging: ['./examples/paging.js', webpackDevServer, hotDevServer]
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -70,7 +72,10 @@ let webpackConfig = {
         exclude: /node_modules/,
         cacheDirectory: true // 开启缓存
       },
-      // https://github.com/webpack/extract-text-webpack-plugin 单独引入css文件
+      {
+        test: /\.css/,
+        loader: 'style-loader!css-loader!postcss-loader'
+      },
       {
         test: /\.scss/,
         loader: 'style-loader!css-loader!postcss-loader!sass-loader?outputStyle=expanded'
@@ -89,18 +94,42 @@ let webpackConfig = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(), //
     new webpack.HotModuleReplacementPlugin(), // 热部署替换模块
-    new webpack.NoErrorsPlugin(), //
-
-    new HtmlwebpackPlugin({
-      template: path.resolve(appPath, 'templates/layout.html'),
-      filename: 'simple.html',
-      //chunks这个参数告诉插件要引用entry里面的哪几个入口
-      chunks: ['simple'],
-      //要把script插入到标签里
-      inject: 'body'
-    })
+    new webpack.NoErrorsPlugin() //
   ]
 };
+
+//创建 HtmlWebpackPlugin 的实例
+// https://www.npmjs.com/package/html-webpack-plugin
+const entry = webpackConfig.entry;
+
+// 为 HtmlwebpackPlugin 设置配置项，与 entry 键对应，根据需要设置其参数值
+const htmlwebpackPluginConfig = {
+  index: {
+    title: '例子列表'
+  },
+  simple: {
+    title: '入门例子'
+  },
+  paging: {
+    title: '分页加载与刷新'
+  }
+};
+
+for (let key in entry) {
+  if (entry.hasOwnProperty(key) && key !== 'vendors') {
+    webpackConfig.plugins.push(
+      new HtmlwebpackPlugin({
+        title: htmlwebpackPluginConfig[key].title,
+        template: path.resolve(appPath, 'templates/layout.html'),
+        filename: `${key}.html`,
+        //chunks这个参数告诉插件要引用entry里面的哪几个入口
+        chunks: [key, 'vendors'],
+        //要把script插入到标签里
+        inject: 'body'
+      })
+    );
+  }
+}
 
 export default {
   webpackConfig,

@@ -32,7 +32,6 @@ class ReactIScroll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      y: 0,
       isScrolling: false, //是否正在滚动
       pullDownState: 0, //下拉状态，0 表示下拉，1表示松开，2表示加载数据中
       pullUpState: 0, //上拉状态，0 表示上拉，1表示松开，2表示加载数据中
@@ -183,7 +182,7 @@ class ReactIScroll extends Component {
           iScroll.hasVerticalScroll = true;
           iScroll.scrollBy(0, 0, 0);
         });
-      } else if (y > (iScroll.maxScrollY + pullUpThreshold) && pullUpCls === 'iscroll-flip') {
+      } else if (y > (iScroll.maxScrollY - pullUpThreshold) && pullUpCls === 'iscroll-flip') {
         this.setState({
           pullUpCls: '',
           pullUpState: 0
@@ -330,7 +329,7 @@ class ReactIScroll extends Component {
           this.lock = false;
           iScroll.refresh();
         });
-      }, 500);
+      }, 1000);
     }
   }
 

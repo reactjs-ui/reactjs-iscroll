@@ -1,6 +1,6 @@
 {
   "name": "reactjs-iscroll",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -28,6 +28,7 @@
     "babel-preset-react": "^6.5.0",
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
+    "es6-promise": "^3.2.1",
     "eslint": "^2.10.2",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-flow-vars": "^0.4.0",
@@ -37,7 +38,10 @@
     "gulp-load-plugins": "^1.2.2",
     "gulp-util": "^3.0.7",
     "html-webpack-plugin": "^2.17.0",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.12.0",
     "node-sass": "^3.7.0",
+    "normalize.css": "^4.1.1",
     "opn": "^4.0.2",
     "postcss": "^5.0.21",
     "postcss-loader": "^0.9.1",

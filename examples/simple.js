@@ -2,20 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import {render} from 'react-dom';
 import iScroll from 'iscroll/build/iscroll-probe';
 import ReactIScroll from '../src/scripts/index';
-import './sass/simple.scss';
+import './sass/example.scss';
 
 class Simple extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      y: 0,
-      pullDownState: 0,
-      pullUpState: 0,
-      isScrolling: false,
-      pullDownCls: 'scrolled-up',
-      pullUpCls: 'scrolled-up'
-    };
 
     this.simpleList = [{
       id: 1,
@@ -66,7 +58,7 @@ class Simple extends Component {
 
     return (
       <div>
-        <ReactIScroll iScroll={iScroll} className="simple">
+        <ReactIScroll iScroll={iScroll} className="example">
           <ul>
             {this.simpleList.map((item) =>
               <li key={item.id}>{item.name}</li>

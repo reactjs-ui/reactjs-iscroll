@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "data": {
+    "currentPage": 1,
+    "totalPage": 5,
+    "totalCount": 55,
+    "list": [
+      {
+        "id": 1
+      },
+      {
+        "id": 2
+      },
+      {
+        "id": 3
+      },
+      {
+        "id": 4
+      },
+      {
+        "id": 5
+      },
+      {
+        "id": 6
+      },
+      {
+        "id": 7
+      },
+      {
+        "id": 8
+      },
+      {
+        "id": 9
+      },
+      {
+        "id": 10
+      }
+    ]
+  },
+  "message": "成功"
+}
