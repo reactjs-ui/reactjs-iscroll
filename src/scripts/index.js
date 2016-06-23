@@ -365,13 +365,13 @@ class ReactIScroll extends Component {
 
 ReactIScroll.defaultProps = {
   options: {
-    mouseWheel: false, // 是否支持鼠标滚轮
+    mouseWheel: true, // 是否支持鼠标滚轮
     scrollbars: true, // 是否显示滚动条
     probeType: 2, // 滚动的节奏
-    bounceTime: 250, // 滚动动画持续的时间，默认为600
+    //bounceTime: 250, // 滚动动画持续的时间，默认为600
     bounceEasing: 'quadratic', // 动画算法
     fadeScrollbars: true, // 是否使用滚动 fade 效果
-    interactiveScrollbars: false // 滚动条是否可以被拖拽
+    interactiveScrollbars: true // 滚动条是否可以被拖拽
   },
   pullDown: true,
   pullUp: true,

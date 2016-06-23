@@ -1,5 +1,9 @@
 # React IScroll 更新日志
 
+## version 0.2.1 运动-强壮的(2016-6-23)
+
+* 修改 bug pullDownText 和 pullUpText PropTypes 类型不一致
+
 ## version 0.2.0 运动-强壮的(2016-5-21)
 
 * 新增例子列表页面
