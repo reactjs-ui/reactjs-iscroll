@@ -3,20 +3,20 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import opn from 'opn';
-import config from './webpack.config.babel';
+import baseConfig from './webpack.config.babel';
 import exampleConfig from './webpack.config.example.babel';
 
 const {webpackConfig, ip, port} = exampleConfig;
 const $ = gulpLoadPlugins();
 
 function compiler(config, callback) {
-  const compiler = webpack(config);
+  const webpackCompiler = webpack(config);
   // run webpack
-  compiler.run((err, stats) => {
+  webpackCompiler.run((err, stats) => {
     if (err) {
-      throw new $.util.PluginError('webpack', err);
+      throw new $.util.PluginError('webpack:build', err);
     }
-    $.util.log('[webpack]', stats.toString({
+    $.util.log('[webpack:build]', stats.toString({
       colors: true
     }));
 
@@ -33,22 +33,38 @@ gulp.task('clean', () => {
 });
 
 // 用webpack 打包编译
+/*eslint-disable camelcase*/
 gulp.task('webpack:build', () => {
-  const compiler = webpack(config);
-  // run webpack
-  compiler.run((err, stats) => {
-    if (err) {
-      throw new $.util.PluginError('webpack:build', err);
-    }
-    $.util.log('[webpack:build]', stats.toString({
-      colors: true
-    }));
+  let config = Object.create(baseConfig);
+  config.plugins.push(
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })
+  );
+
+  //先无压缩编译
+  compiler(config, () => {
+    //在回调函数中再压缩编译
+    config.plugins.push(
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          screw_ie8: true,
+          warnings: false
+        },
+        mangle: {
+          except: [] // 设置不混淆变量名
+        }
+      })
+    );
+    config.output.filename = '[name].min.js';
+    compiler(config);
   });
 });
 
 
 //把 es6 解析为 es5
-gulp.task('build', () => {
+gulp.task('build', ['clean'], () => {
   gulp.start(['webpack:build']);
 });
 

@@ -1,5 +1,11 @@
 # React IScroll 更新日志
 
+## version 0.2.2 运动-强壮的(2016-6-24)
+
+* 升级 node modules
+* 打包生成 min 文件
+* 修改 webpack 配置文件
+
 ## version 0.2.1 运动-强壮的(2016-6-23)
 
 * 修改 bug pullDownText 和 pullUpText PropTypes 类型不一致

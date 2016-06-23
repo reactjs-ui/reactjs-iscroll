@@ -25,6 +25,7 @@ let webpackConfig = {
     path: path.join(__dirname, 'dist'), //打包输出目录
     filename: '[name].js', //文件名称
     publicPath: './', //生成文件基于上下文路径
+    library: ['reactIScroll'],
     libraryTarget: 'umd'
   },
   module: {
