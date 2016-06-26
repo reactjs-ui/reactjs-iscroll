@@ -142,8 +142,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(ReactIScroll, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var pullDownEl = this.refs.pullDown;
-	      this.pullDownOffset = pullDownEl.offsetHeight;
+	      var pullDown = this.props.pullDown;
+
+	      if (pullDown) {
+	        var pullDownEl = this.refs.pullDown;
+	        this.pullDownOffset = pullDownEl.offsetHeight;
+	      }
 	      this.initIscroll();
 	      this.bindIScrollEvents();
 	    }
@@ -213,6 +217,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this2.refresh(iScrollInstance);
 	      };
 	    }
+	  }, {
+	    key: 'forbidScroll',
+	    value: function forbidScroll(distY) {
+	      var _props2 = this.props;
+	      var pullUp = _props2.pullUp;
+	      var pullDown = _props2.pullDown;
+
+	      if (!pullUp && !pullDown) {
+	        return true;
+	      }
+	      //判断是上滑还是下滑
+	      if (distY > 0 && !pullDown) {
+	        //向下
+	        return true;
+	      }
+	      if (distY < 0 && !pullUp) {
+	        //向上
+	        return true;
+	      }
+	      return false;
+	    }
 
 	    // IScroll events start
 	    /**
@@ -223,6 +248,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'scrollStart',
 	    value: function scrollStart(iScroll) {
+	      if (this.forbidScroll(iScroll.distY)) {
+	        return;
+	      }
+
 	      if (this.lock) {
 	        return;
 	      }
@@ -242,15 +271,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function scroll(iScroll) {
 	      var _this3 = this;
 
+	      if (this.forbidScroll(iScroll.distY)) {
+	        return;
+	      }
 	      if (this.lock) {
 	        return;
 	      }
 	      var y = iScroll.y;
-	      var _props2 = this.props;
-	      var pullDown = _props2.pullDown;
-	      var pullUp = _props2.pullUp;
-	      var pullDownThreshold = _props2.pullDownThreshold;
-	      var pullUpThreshold = _props2.pullUpThreshold;
+	      var _props3 = this.props;
+	      var pullDown = _props3.pullDown;
+	      var pullUp = _props3.pullUp;
+	      var pullDownThreshold = _props3.pullDownThreshold;
+	      var pullUpThreshold = _props3.pullUpThreshold;
 	      //如果没设置下拉刷新或向上加载更多时，则直接返回
 
 	      if (!pullDown && !pullUp) {
@@ -329,12 +361,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'scrollEnd',
 	    value: function scrollEnd(iScroll) {
+	      if (this.forbidScroll(iScroll.distY)) {
+	        return;
+	      }
 	      if (this.lock) {
 	        return;
 	      }
-	      var _props3 = this.props;
-	      var pullDown = _props3.pullDown;
-	      var pullUp = _props3.pullUp;
+	      var _props4 = this.props;
+	      var pullDown = _props4.pullDown;
+	      var pullUp = _props4.pullUp;
 	      var _state2 = this.state;
 	      var pullDownCls = _state2.pullDownCls;
 	      var pullUpCls = _state2.pullUpCls;
@@ -377,15 +412,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function refresh(iScroll) {
 	      var _this4 = this;
 
+	      if (this.forbidScroll(iScroll.distY)) {
+	        return;
+	      }
 	      if (this.lock) {
 	        return;
 	      }
 	      var y = iScroll.y;
 	      var animTime = void 0;
 	      var type = void 0;
-	      var _props4 = this.props;
-	      var pullDown = _props4.pullDown;
-	      var pullUp = _props4.pullUp;
+	      var _props5 = this.props;
+	      var pullDown = _props5.pullDown;
+	      var pullUp = _props5.pullUp;
 	      var _state3 = this.state;
 	      var pullDownCls = _state3.pullDownCls;
 	      var pullUpCls = _state3.pullUpCls;
@@ -492,18 +530,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var pullUpState = _state4.pullUpState;
 	      var pullDownCls = _state4.pullDownCls;
 	      var pullUpCls = _state4.pullUpCls;
-	      var _props5 = this.props;
-	      var pullDown = _props5.pullDown;
-	      var pullUp = _props5.pullUp;
-	      var pullDownText = _props5.pullDownText;
-	      var pullUpText = _props5.pullUpText;
-	      var className = _props5.className;
+	      var _props6 = this.props;
+	      var pullDown = _props6.pullDown;
+	      var pullUp = _props6.pullUp;
+	      var pullDownText = _props6.pullDownText;
+	      var pullUpText = _props6.pullUpText;
+	      var className = _props6.className;
+	      var style = _props6.style;
 
 	      className = className ? ' ' + className : '';
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'iscroll-wrapper' + className },
+	        { className: 'iscroll-wrapper' + className, style: style || {} },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'iscroll-body' },
@@ -557,7 +596,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	ReactIScroll.propTypes = {
 	  options: _react.PropTypes.object.isRequired,
 	  iScroll: _react.PropTypes.func.isRequired,
-	  className: _react.PropTypes.string, // 自定义样式
+	  className: _react.PropTypes.string, // 自定义class样式
+	  style: _react.PropTypes.object, // 自定义style样式
 	  children: _react.PropTypes.node,
 	  pullDown: _react.PropTypes.bool, //是否显示向下刷新加载
 	  pullUp: _react.PropTypes.bool, //是否显示向上加载更多
