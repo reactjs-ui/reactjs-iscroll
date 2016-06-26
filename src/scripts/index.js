@@ -48,8 +48,11 @@ class ReactIScroll extends Component {
   }
 
   componentDidMount() {
-    const pullDownEl = this.refs.pullDown;
-    this.pullDownOffset = pullDownEl.offsetHeight;
+    const {pullDown} = this.props;
+    if (pullDown) {
+      const pullDownEl = this.refs.pullDown;
+      this.pullDownOffset = pullDownEl.offsetHeight;
+    }
     this.initIscroll();
     this.bindIScrollEvents();
   }
@@ -102,12 +105,31 @@ class ReactIScroll extends Component {
     }
   }
 
+  forbidScroll(distY) {
+    const {pullUp, pullDown} = this.props;
+    if (!pullUp && !pullDown) {
+      return true;
+    }
+    //判断是上滑还是下滑
+    if (distY > 0 && !pullDown) { //向下
+      return true;
+    }
+    if (distY < 0 && !pullUp) { //向上
+      return true;
+    }
+    return false;
+  }
+
   // IScroll events start
   /**
    * 开始滚动时事件
    * @param iScroll
    */
   scrollStart(iScroll) {
+    if (this.forbidScroll(iScroll.distY)) {
+      return;
+    }
+
     if (this.lock) {
       return;
     }
@@ -122,6 +144,9 @@ class ReactIScroll extends Component {
    * @param iScroll
    */
   scroll(iScroll) {
+    if (this.forbidScroll(iScroll.distY)) {
+      return;
+    }
     if (this.lock) {
       return;
     }
@@ -198,6 +223,9 @@ class ReactIScroll extends Component {
    * @param iScroll
    */
   scrollEnd(iScroll) {
+    if (this.forbidScroll(iScroll.distY)) {
+      return;
+    }
     if (this.lock) {
       return;
     }
@@ -236,6 +264,9 @@ class ReactIScroll extends Component {
    * @param iScroll
    */
   refresh(iScroll) {
+    if (this.forbidScroll(iScroll.distY)) {
+      return;
+    }
     if (this.lock) {
       return;
     }
@@ -335,11 +366,11 @@ class ReactIScroll extends Component {
 
   render() {
     const {pullDownState, pullUpState, pullDownCls, pullUpCls} = this.state;
-    let {pullDown, pullUp, pullDownText, pullUpText, className} = this.props;
+    let {pullDown, pullUp, pullDownText, pullUpText, className, style} = this.props;
     className = className ? ` ${className}` : '';
 
     return (
-      <div className={`iscroll-wrapper${className}`}>
+      <div className={`iscroll-wrapper${className}`} style={style || {}}>
         <div className="iscroll-body">
           {pullDown ? (
             <div ref="pullDown" className={classnames({'iscroll-pull-down': true, [pullDownCls]: true})}>
@@ -384,7 +415,8 @@ ReactIScroll.defaultProps = {
 ReactIScroll.propTypes = {
   options: PropTypes.object.isRequired,
   iScroll: PropTypes.func.isRequired,
-  className: PropTypes.string, // 自定义样式
+  className: PropTypes.string, // 自定义class样式
+  style: PropTypes.object, // 自定义style样式
   children: PropTypes.node,
   pullDown: PropTypes.bool, //是否显示向下刷新加载
   pullUp: PropTypes.bool, //是否显示向上加载更多

@@ -43,7 +43,9 @@ render(<Simple/>, document.getElementById('layout'));
 * iScroll: PropTypes.func.isRequired,
   iScroll 组件类
 * className: PropTypes.string, 
-  自定义样式，可传入自定义样式
+  自定义 class 样式，可传入自定义 class 样式
+* style: PropTypes.string, 
+    自定义 style 样式，可传入自定义 style 样式
 * children: PropTypes.node,
   iScroll 组件中展示的内容
 * pullDown: PropTypes.bool, 

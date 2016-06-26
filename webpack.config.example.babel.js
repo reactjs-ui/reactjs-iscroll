@@ -48,7 +48,8 @@ let webpackConfig = {
   entry: {
     index: ['./examples/index.js', webpackDevServer, hotDevServer],
     simple: ['./examples/simple.js', webpackDevServer, hotDevServer],
-    paging: ['./examples/paging.js', webpackDevServer, hotDevServer]
+    paging: ['./examples/paging.js', webpackDevServer, hotDevServer],
+    pullOption: ['./examples/pullOption.js', webpackDevServer, hotDevServer],
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -108,10 +109,13 @@ const htmlwebpackPluginConfig = {
     title: '例子列表'
   },
   simple: {
-    title: '入门例子'
+    title: '简单例子'
   },
   paging: {
     title: '分页加载与刷新'
+  },
+  pullOption: {
+    title: '禁止向上或向下滑动'
   }
 };
 

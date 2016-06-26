@@ -9,10 +9,13 @@ class Index extends Component {
         <h3>React IScroll 例子</h3>
         <ol>
           <li>
-            <a href="./simple.html" target="_blank">入门例子</a>
+            <a href="./simple.html" target="_blank">简单例子</a>
           </li>
           <li>
             <a href="./paging.html" target="_blank">分页加载与刷新</a>
+          </li>
+          <li>
+            <a href="./pullOption.html" target="_blank">禁止向上或向下滑动</a>
           </li>
         </ol>
       </div>
