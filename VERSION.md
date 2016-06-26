@@ -1,6 +1,6 @@
 # React IScroll 更新日志
 
-## version 0.3.0 活泼-机灵的(2016-6-26)
+## version 0.3.1 活泼-机灵的(2016-6-26)
 
 * 增加自定义 style 属性，可以根据需要设置 style 样式
 * 修复当禁止向下滑动时的 [bug](https://github.com/reactjs-ui/reactjs-iscroll/issues/1) 
