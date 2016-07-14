@@ -164,6 +164,15 @@ class ReactIScroll extends Component {
       iScroll.hasVerticalScroll = true;
       // 设置为 -1000 稍后重新检测
       this.scrollStartPos = -1000;
+    } else if ((this.scrollStartPos === -1000) &&
+      (((!pullUp) && (!pullDownCls.match('iscroll-flip')) && (y < 0)) ||
+      ((!pullDown) && (!pullUpCls.match('iscroll-flip')) && (y > 0)))) {
+      // Scroller was not moving at first (and the trick above was applied), but now it's moving in the wrong direction.
+      // I.e. the user is either scrolling up while having no "pull-up-bar",
+      // or scrolling down while having no "pull-down-bar" => Disable the trick again and reset values...
+      iScroll.hasVerticalScroll = false;
+      this.scrollStartPos = 0;
+      iScroll.scrollBy(0, -y, 0);	// Adjust scrolling position to undo this "invalid" movement
     }
 
     // 向下滑
